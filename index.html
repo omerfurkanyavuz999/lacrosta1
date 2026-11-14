@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Crosta Pizzeria - L'arte della Pizza</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        stone: {
+                            850: '#23211f',
+                            900: '#1c1a19',
+                            950: '#141211'
+                        },
+                        brand: {
+                            wa: '#25D366', /* WhatsApp */
+                            gold: '#d4af37',
+                            amber: '#f59e0b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #141211;
+            color: #f5f5f4;
+            overflow-x: hidden;
+        }
+        /* Custom Premium Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1c1a19; }
+        ::-webkit-scrollbar-thumb { background: #44403c; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #f59e0b; }
+        
+        /* Modal Transition & Glassmorphism */
+        .modal-enter {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+        .modal-enter .modal-content {
+            transform: scale(1) translateY(0) !important;
+        }
+        
+        /* Category Button Active State */
+        .cat-btn.active {
+            background-color: #f59e0b;
+            color: #141211;
+            border-color: #f59e0b;
+        }
+        
+        /* Lang Button Active State */
+        .lang-btn.active {
+            color: #f59e0b;
+            font-weight: 600;
+        }
+        
+        /* Card Hover Image Zoom */
+        .menu-card:hover .card-img {
+            transform: scale(1.08);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-amber selection:text-stone-950">
+
+    <!-- FLOATING ACTION BUTTONS (BOTTOM LEFT - Sol Alt Köşe) -->
+    <div class="fixed left-4 bottom-4 md:left-6 md:bottom-6 flex flex-col gap-3 z-50">
+        <!-- Phone Button -->
+        <a href="tel:+905325505583" class="w-12 h-12 bg-stone-900 border border-brand-amber/40 rounded-full flex items-center justify-center text-brand-amber hover:bg-brand-amber hover:text-stone-950 transition-all duration-300 shadow-lg hover:scale-110 group relative" aria-label="Call Us">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+            <span class="absolute left-14 bg-stone-900 border border-white/10 text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap">Arayın</span>
+        </a>
+        <!-- WhatsApp Button -->
+        <a href="https://wa.me/905325505583" target="_blank" class="w-12 h-12 bg-[#25D366] rounded-full flex items-center justify-center text-white hover:bg-white hover:text-[#25D366] transition-all duration-300 shadow-[0_0_15px_rgba(37,211,102,0.4)] hover:scale-110 group relative" aria-label="WhatsApp">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            <span class="absolute left-14 bg-stone-900 border border-white/10 text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap">WhatsApp</span>
+        </a>
+        <!-- Instagram Button -->
+        <a href="https://www.instagram.com/lacrostapizzaturkiye" target="_blank" class="w-12 h-12 bg-stone-900 border border-[#E1306C]/40 rounded-full flex items-center justify-center text-[#E1306C] hover:bg-gradient-to-tr hover:from-[#F56040] hover:via-[#E1306C] hover:to-[#833AB4] hover:text-white hover:border-transparent transition-all duration-300 shadow-[0_0_15px_rgba(225,48,108,0.2)] hover:shadow-[0_0_15px_rgba(225,48,108,0.5)] hover:scale-110 group relative" aria-label="Instagram">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            <span class="absolute left-14 bg-stone-900 border border-white/10 text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap">Instagram</span>
+        </a>
+        <!-- Location Button -->
+        <a href="https://maps.app.goo.gl/Eeqcy7AmBEUiJPp88" target="_blank" class="w-12 h-12 bg-stone-900 border border-[#EA4335]/40 rounded-full flex items-center justify-center text-[#EA4335] hover:bg-[#EA4335] hover:text-white transition-all duration-300 shadow-[0_0_15px_rgba(234,67,53,0.2)] hover:shadow-[0_0_15px_rgba(234,67,53,0.5)] hover:scale-110 group relative" aria-label="Location">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            <span class="absolute left-14 bg-stone-900 border border-white/10 text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap">Konum / Maps</span>
+        </a>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="absolute w-full z-40 top-0 transition-all duration-300 bg-transparent border-b border-transparent" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <span class="font-serif text-3xl md:text-4xl font-bold text-white tracking-wider flex items-center gap-3 drop-shadow-md">
+                        <img src="1000287663.jpg" alt="La Crosta Logo" class="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover border-2 border-brand-amber/40 shadow-[0_0_15px_rgba(245,158,11,0.3)]" onerror="this.src='https://ui-avatars.com/api/?name=LC&background=1c1a19&color=f59e0b&rounded=true'">
+                        La Crosta
+                    </span>
+                </div>
+                
+                <!-- Language Switcher -->
+                <div class="flex items-center space-x-2 sm:space-x-4 bg-stone-900/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 shadow-lg">
+                    <button onclick="setLang('tr')" class="lang-btn active text-sm text-stone-300 hover:text-white transition-colors uppercase" id="btn-tr">TR</button>
+                    <span class="text-stone-600">|</span>
+                    <button onclick="setLang('en')" class="lang-btn text-sm text-stone-300 hover:text-white transition-colors uppercase" id="btn-en">EN</button>
+                    <span class="text-stone-600">|</span>
+                    <button onclick="setLang('ru')" class="lang-btn text-sm text-stone-300 hover:text-white transition-colors uppercase" id="btn-ru">RU</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SECTION 1: Hero Area (Exactly 100vh) -->
+    <section class="relative h-screen w-full flex items-center justify-center overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=2070&auto=format&fit=crop" alt="Premium Pizza Background" class="w-full h-full object-cover scale-105" />
+            <div class="absolute inset-0 bg-gradient-to-b from-stone-950/70 via-stone-950/60 to-stone-950"></div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 text-center px-4 w-full max-w-5xl mx-auto flex flex-col items-center justify-center -mt-10">
+            <h1 class="text-6xl md:text-8xl lg:text-9xl font-serif font-bold text-white mb-6 drop-shadow-2xl leading-tight">
+                L'arte della <br/>
+                <span class="italic text-brand-amber font-light">Pizza</span>
+            </h1>
+            <p id="ui-hero-subtitle" class="text-lg md:text-2xl lg:text-3xl text-stone-300 font-light tracking-wide drop-shadow-md max-w-2xl mx-auto">
+                Antalya'da Gerçek İtalyan Ustalığı
+            </p>
+        </div>
+
+        <!-- Absolute Bottom Menu Button -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 animate-bounce cursor-pointer group">
+            <a href="#menu-section" class="flex flex-col items-center gap-3 text-stone-400 group-hover:text-brand-amber transition-colors">
+                <span id="ui-hero-btn" class="text-xs md:text-sm tracking-[0.3em] uppercase font-medium">Menüyü İncele</span>
+                <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- SECTION 2: Menu Section -->
+    <section id="menu-section" class="py-24 px-4 max-w-7xl mx-auto min-h-screen relative z-10">
+        <div class="text-center mb-16">
+            <h2 id="ui-menu-title" class="text-3xl md:text-5xl font-serif font-bold text-white mb-6">Lezzet Kataloğu</h2>
+            <div class="w-20 h-1 bg-brand-amber mx-auto rounded-full mb-10"></div>
+            
+            <!-- Category Filters -->
+            <div class="flex flex-wrap justify-center gap-3 md:gap-4" id="category-filters">
+                <!-- Dynamically generated via JS -->
+            </div>
+        </div>
+
+        <!-- Menu Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10" id="menu-grid">
+            <!-- Items injected via JS -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-stone-900 border-t border-white/5 py-16">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center items-center gap-2 mb-6">
+                <svg class="w-8 h-8 text-brand-amber" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.43 2 5.23 3.54 3.01 6L12 22l8.99-16C18.77 3.54 15.57 2 12 2zM7 7c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm5 8c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
+                <h3 class="font-serif text-3xl font-bold text-white tracking-widest">La Crosta</h3>
+            </div>
+            <p id="ui-footer-text" class="text-stone-400 mb-8 text-sm md:text-base font-light tracking-wide">Konyaaltı, Antalya | Gerçek İtalyan Pizzası</p>
+            <div class="text-stone-600 text-xs tracking-wider">
+                &copy; 2026 La Crosta Pizzeria. <span id="ui-footer-rights">Tüm hakları saklıdır.</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- PREMIUM MODAL (Pop-up with ONLY WhatsApp Order Button) -->
+    <div id="productModal" class="fixed inset-0 z-50 flex items-center justify-center bg-stone-950/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-400 ease-out p-4 md:p-6">
+        
+        <!-- Modal Content Box -->
+        <div class="modal-content bg-stone-900 border border-white/10 w-full max-w-4xl rounded-2xl overflow-hidden shadow-2xl transform scale-95 translate-y-8 transition-all duration-400 flex flex-col md:flex-row max-h-[90vh]">
+            
+            <!-- Close Button -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 bg-stone-950/50 hover:bg-brand-amber hover:text-stone-950 backdrop-blur-sm text-white w-10 h-10 rounded-full flex items-center justify-center z-20 transition-colors border border-white/10 shadow-lg">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            
+            <!-- Image Side -->
+            <div class="relative w-full md:w-1/2 h-64 md:h-auto shrink-0 bg-stone-800">
+                <img id="modalImg" src="" alt="Product" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:via-stone-900/40 md:to-stone-900 opacity-90"></div>
+            </div>
+            
+            <!-- Info & Actions Side -->
+            <div class="w-full md:w-1/2 flex flex-col p-6 md:p-10 overflow-y-auto custom-scrollbar">
+                
+                <div class="mb-4">
+                    <h2 id="modalTitle" class="text-3xl font-serif font-bold text-white mb-2">Product Name</h2>
+                    <!-- No Price -->
+                </div>
+                
+                <p id="modalDesc" class="text-stone-300 text-sm md:text-base mb-6 leading-relaxed font-light"></p>
+                
+                <div class="mb-8">
+                    <h4 id="ui-modal-ingredients-title" class="text-xs font-bold text-stone-500 uppercase tracking-widest mb-3 border-b border-white/10 pb-2">İçindekiler</h4>
+                    <p id="modalIngredients" class="text-stone-400 text-sm md:text-base italic leading-relaxed"></p>
+                </div>
+                
+                <!-- Order Buttons - ONLY WHATSAPP REMAINS -->
+                <div class="mt-auto pt-6 border-t border-white/5">
+                    <div class="text-center mb-4">
+                        <span id="ui-modal-order-title" class="text-xs font-semibold text-stone-500 uppercase tracking-widest">Hemen Sipariş Ver</span>
+                    </div>
+                    
+                    <a id="waModalButton" href="#" target="_blank" class="flex items-center justify-center w-full bg-brand-wa text-stone-950 py-4 px-4 rounded-xl font-bold hover:bg-white transition-all duration-300 shadow-[0_0_20px_rgba(37,211,102,0.2)] hover:shadow-[0_0_20px_rgba(37,211,102,0.5)] gap-3 group text-lg">
+                        <svg class="w-6 h-6 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+                        <span id="ui-modal-wa-btn">WhatsApp'tan Sipariş</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT: Logic, Data & Translations -->
+    <script>
+        // --- 1. TRANSLATION DICTIONARY ---
+        const uiTranslations = {
+            tr: {
+                heroSubtitle: "Antalya'da Gerçek İtalyan Ustalığı",
+                heroBtn: "Menüyü İncele",
+                menuTitle: "Lezzet Kataloğu",
+                catAll: "Tümü",
+                catBreakfast: "Kahvaltı & Bowl",
+                catPizza: "Pizzalar",
+                catPasta: "Makarnalar",
+                catBurger: "Burger & Dürüm",
+                catSnack: "Atıştırmalıklar",
+                catDrink: "İçecekler",
+                modalIngredients: "İÇİNDEKİLER",
+                modalOrderTitle: "HEMEN SİPARİŞ VER",
+                modalWaBtn: "WhatsApp'tan Sipariş",
+                footerText: "Konyaaltı, Antalya | Gerçek İtalyan Pizzası",
+                footerRights: "Tüm hakları saklıdır.",
+                cardInspect: "İncele"
+            },
+            en: {
+                heroSubtitle: "Authentic Italian Mastery in Antalya",
+                heroBtn: "View Menu",
+                menuTitle: "Our Menu",
+                catAll: "All",
+                catBreakfast: "Breakfast & Bowls",
+                catPizza: "Pizzas",
+                catPasta: "Pastas",
+                catBurger: "Burgers & Wraps",
+                catSnack: "Snacks",
+                catDrink: "Drinks",
+                modalIngredients: "INGREDIENTS",
+                modalOrderTitle: "ORDER NOW",
+                modalWaBtn: "Order via WhatsApp",
+                footerText: "Konyaalti, Antalya | Authentic Italian Pizza",
+                footerRights: "All rights reserved.",
+                cardInspect: "Inspect"
+            },
+            ru: {
+                heroSubtitle: "Настоящее итальянское мастерство в Анталии",
+                heroBtn: "Посмотреть меню",
+                menuTitle: "Наше меню",
+                catAll: "Все",
+                catBreakfast: "Завтраки и Боулы",
+                catPizza: "Пицца",
+                catPasta: "Паста",
+                catBurger: "Бургеры и Роллы",
+                catSnack: "Закуски",
+                catDrink: "Напитки",
+                modalIngredients: "ИНГРЕДИЕНТЫ",
+                modalOrderTitle: "ЗАКАЗАТЬ СЕЙЧАС",
+                modalWaBtn: "Заказ через WhatsApp",
+                footerText: "Коньяалты, Анталия | Настоящая пицца",
+                footerRights: "Все права защищены.",
+                cardInspect: "Посмотреть"
+            }
+        };
+
+        let currentLang = 'tr';
+        let currentCategory = 'all';
+
+        // --- 2. MENU DATA ARRAY (PRICES REMOVED, REAL ITEMS ADDED) ---
+        const menuData = [
+            // KAHVALTI & BOWLS
+            {
+                id: "br1", category: "breakfast",
+                img: "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?q=80&w=800&auto=format&fit=crop",
+                tr: { title: "İngiliz Kahvaltısı", desc: "Güne enerjik bir başlangıç.", ingredients: "2 adet kızarmış yumurta, pastırma, mantar, ızgara domates, sosis, tereyağlı ekmek." },
+                en: { title: "English Breakfast", desc: "An energetic start to the day.", ingredients: "2 fried eggs, bacon, mushrooms, grilled tomatoes, sausage, buttered bread." },
+                ru: { title: "Английский завтрак", desc: "Энергичное начало дня.", ingredients: "2 яичницы, бекон, грибы, помидоры на гриле, сосиски, хлеб со сливочным маслом." }
+            },
+            {
+                id: "br2", category: "breakfast",
+                img: "https://images.unsplash.com/photo-1510693202970-1376840d0494?q=80&w=800&auto=format&fit=crop",
+                tr: { title: "Menemen Tabağı", desc: "Geleneksel Türk kahvaltısı klasikleri.", ingredients: "Yumurta, yeşil biber, taze domates, soğan, peynir ve çıtır ekmek." },
+                en: { title: "Menemen Plate", desc: "Traditional Turkish breakfast classic.", ingredients: "Eggs, green peppers, fresh tomatoes, onions, cheese and crispy bread." },
+                ru: { title: "Менемен", desc: "Традиционный турецкий завтрак.", ingredients: "Яйца, зеленый перец, свежие помидоры, лук, сыр и хрустящий хлеб." }
+            },
+            {
+                id: "br3", category: "breakfast",
+                img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800&auto=format&fit=crop",
+                tr: { title: "Akdeniz Bowl", desc: "Taze, hafif ve sağlıklı.", ingredients: "Marul, domates, salatalık, soğan, biber, avokado, zeytinyağlı özel sos." },
+                en: { title: "Mediterranean Bowl", desc: "Fresh, light and healthy.", ingredients: "Lettuce, tomatoes, cucumbers, onions, peppers, avocado, special olive oil sauce." },
+                ru: { title: "Средиземноморский Боул", desc: "Свежий, легкий и полезный.", ingredients: "Салат, помидоры, огурцы, лук, перец, авокадо, специальный соус на оливковом масле." }
+            },
+            
+            // PIZZALAR
+            {
+                id: "p1", category: "pizza",
+                img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=800&auto=format&fit=crop",
+                tr: { title: "La Crosta Special", desc: "İmza pizzamız. Bol malzeme, muhteşem uyum.", ingredients: "Domates sos, mozzarella, mantar, rucola, füme dana eti, parmesan." },
+                en: { title: "La Crosta Special", desc: "Our signature pizza. Rich ingredients, perfect harmony.", ingredients: "Tomato sauce, mozzarella, mushrooms, arugula, smoked beef, parmesan." },
+                ru: { title: "Ла Кроста Спешл", desc: "Наша фирменная пицца. Богатое сочетание вкусов.", ingredients: "Томатный соус, моцарелла, грибы, руккола, копченая говядина, пармезан." }
+            },
+            {
+                id: "p2", category: "pizza",
+                img: "https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?q=80&w=800&auto=format&fit=crop",
+                tr: { title: "Margherita Classico", desc: "Geleneksel İtalyan sadeliği.", ingredients: "San Marzano domates sosu, taze manda mozzarellası, domates, fesleğen." },
+                en: { title: "Margherita Classico", desc: "Traditional Italian simplicity.", ingredients: "San Marzano tomato sauce, fresh buffalo mozzarella, tomatoes, basil." },
+                ru: { title: "Маргарита Классико", desc: "Традиционная итальянская простота.", ingredients: "Томатный соус Сан-Марцано, свежая моцарелла буффало, помидоры, базилик." }
+            },
+            {
+                id: "p3", category: "pizza",
+                img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop",
+                tr: { title: "Quattro Formaggi", desc: "Peynir tutkunları için 4 peynirli özel lezzet.", ingredients: "Domates sos, mozzarella, labne, roquefort peyniri, rucola, parmesan." },
+                en: { title: "Quattro Formaggi", desc: "A 4-cheese delight for cheese lovers.", ingredients: "Tomato sauce, mozzarella, labneh, roquefort, arugula, parmesan." },
+                ru: { title: "Кватро Формаджи", desc: "Рай для любителей сыра, 4 вида сыра.", ingredients: "Томатный соус, моцарелла, лабне, рокфор, руккола, пармезан." }
+            },
+            {
+                id: "p4", category: "pizza",
+                img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=800&auto=format&fit=crop",
+                tr: { title: "Deniz Mahsüllü Pizza", desc: "Akdeniz'in tazeliği hamurla buluştu.", ingredients: "Domates sosu, mozzarella, karides, midye, somon, mısır, soğan." },
+                en: { title: "Seafood Pizza", desc: "Mediterranean freshness meets dough.", ingredients: "Tomato sauce, mozzarella, shrimp, mussels, salmon, corn, onion." },
+                ru: { title: "Морская Пицца", desc: "Свежесть Средиземноморья на тесте.", ingredients: "Томатный соус, моцарелла, креветки, мидии, лосось, кукуруза, лук." }
+            },
+            {
+                id: "p5", category: "pizza",
+                img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=800&auto=format&fit=crop",
+                tr: { title: "Pepperoni / Diavola", desc: "Klasik acılı İtalyan lezzeti.", ingredients: "Domates sos, mozzarella, ince dilim pepperoni sucuk, acı biber." },
+                en: { title: "Pepperoni / Diavola", desc: "Classic spicy Italian flavor.", ingredients: "Tomato sauce, mozzarella, thin sliced pepperoni, hot peppers." },
+                ru: { title: "Пепперони / Дьявола", desc: "Классический острый итальянский вкус.", ingredients: "Томатный соус, моцарелла, тонко нарезанная пепперони, острый перец." }
+            },
+            {
+                id: "p6", category: "pizza",
+                img: "https://images.unsplash.com/photo-1590947132387-155cc02f3212?q=80&w=800&auto=format&fit=crop",
+                tr: { title: "Karışık Pizza", desc: "Her şeyden biraz isteyenlere.", ingredients: "Domates sosu, mozzarella, pepperoni, mantar, biber, mısır, zeytin." },
+                en: { title: "Mixed Pizza", desc: "For those who want a little bit of everything.", ingredients: "Tomato sauce, mozzarella, pepperoni, mushroom, pepper, corn, olive." },
+                ru: { title: "Смешанная пицца", desc: "Для тех, кто хочет всего понемногу.", ingredients: "Томатный соус, моцарелла, пепперони, грибы, перец, кукуруза, оливки." }
+            },
+            {
+                id: "p7", category: "pizza",
+                img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop",
+                tr: { title: "Barbekü Soslu Tavuklu", desc: "Tatlı ve isli barbekü aroması.", ingredients: "Domates sosu, mozzarella, tavuk, barbekü sosu, soğan, mısır." },
+                en: { title: "BBQ Chicken Pizza", desc: "Sweet and smoky BBQ flavor.", ingredients: "Tomato sauce, mozzarella, chicken, BBQ sauce, onion, corn." },
+                ru: { title: "Пицца с курицей BBQ", desc: "Сладкий и дымный аромат барбекю.", ingredients: "Томатный соус, моцарелла, курица, соус барбекю, лук, кукуруза." }
+            },
+
+            // MAKARNALAR
+            {
+                id: "ps1", category: "pasta",
+                img: "https://images.unsplash.com/photo-1621996316565-e31514c9f056?q=80&w=800&auto=format&fit=crop",
+                tr: { title: "Karides Carbonara", desc: "Klasik Carbonara lezzetinin deniz mahsüllü özel yorumu.", ingredients: "Spagetti, carbonara sosu, karides, sarımsak, parmesan peyniri." },
+                en: { title: "Shrimp Carbonara", desc: "A special seafood twist on classic Carbonara.", ingredients: "Spaghetti, carbonara sauce, shrimp, garlic, parmesan cheese." },
+                ru: { title: "Карбонара с креветками", desc: "Особый морской вариант классической карбонары.", ingredients: "Спагетти, соус карбонара, креветки, чеснок, сыр пармезан." }
+            },
+            {
+                id: "ps2", category: "pasta",
+                img: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=800&auto=format&fit=crop",
+                tr: { title: "Pesto Soslu Makarna", desc: "Fesleğenin ferahlatıcı dokunuşu.", ingredients: "Spagetti, ev yapımı taze pesto sosu, krema, sarımsak, parmesan." },
+                en: { title: "Pesto Pasta", desc: "The refreshing touch of basil.", ingredients: "Spaghetti, homemade fresh pesto sauce, cream, garlic, parmesan." },
+                ru: { title: "Паста Песто", desc: "Освежающая нотка базилика.", ingredients: "Спагетти, домашний свежий соус песто, сливки, чеснок, пармезан." }
+            },
+            {
+                id: "ps3", category: "pasta",
+                img: "https://images.unsplash.com/photo-1626844131082-256783844137?q=80&w=800&auto=format&fit=crop",
+                tr: { title: "Bolonez Soslu Makarna", desc: "Zengin etli domates sosu.", ingredients: "Spagetti, ağır ateşte pişmiş bolonez et sosu, parmesan peyniri." },
+                en: { title: "Bolognese Pasta", desc: "Rich meaty tomato sauce.", ingredients: "Spaghetti, slow-cooked bolognese meat sauce, parmesan cheese." },
+                ru: { title: "Паста Болоньезе", desc: "Насыщенный мясной томатный соус.", ingredients: "Спагетти, мясной соус болоньезе медленного приготовления, пармезан." }
+            },
+            {
+                id: "ps4", category: "pasta",
+                img: "https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?q=80&w=800&auto=format&fit=crop",
+                tr: { title: "Kremalı Mantarlı Makarna", desc: "Yumuşacık krema ve taze mantar uyumu.", ingredients: "Spagetti, mantar, taze krema sosu, sarımsak, parmesan peyniri." },
+                en: { title: "Creamy Mushroom Pasta", desc: "Soft cream and fresh mushroom harmony.", ingredients: "Spaghetti, mushrooms, fresh cream sauce, garlic, parmesan cheese." },
+                ru: { title: "Паста с грибами в сливочном соусе", desc: "Гармония нежных сливок и свежих грибов.", ingredients: "Спагетти, грибы, свежий сливочный соус, чеснок, пармезан." }
+            },
+
+            // BURGER & DÜRÜM
+            {
+                id: "b1", category: "burger",
+                img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800&auto=format&fit=crop",
+                tr: { title: "Bi-Zone Burger", desc: "Odun ateşinde islenmiş özel köfte.", ingredients: "120gr dana köfte, cheddar peyniri, marul, domates, karamelize soğan, burger sosu. Patates ile." },
+                en: { title: "Bi-Zone Burger", desc: "Wood-fire smoked special patty.", ingredients: "120g beef patty, cheddar, lettuce, tomatoes, caramelized onions, burger sauce. With fries." },
+                ru: { title: "Би-Зон Бургер", desc: "Котлета, копченая на дровах.", ingredients: "120г говяжья котлета, чеддер, салат, помидоры, карамелизованный лук, соус. С картофелем." }
+            },
+            {
+                id: "b2", category: "burger",
+                img: "https://images.unsplash.com/photo-1594212699314-1e2474f32c32?q=80&w=800&auto=format&fit=crop",
+                tr: { title: "Bi-Zone Double Burger", desc: "Ekstra et, ekstra lezzet.", ingredients: "240gr dana köfte (çift), çift cheddar, marul, domates, soğan, burger sosu. Patates ile." },
+                en: { title: "Double Bi-Zone Burger", desc: "Extra meat, extra flavor.", ingredients: "240g beef patty (double), double cheddar, lettuce, tomato, onion, burger sauce. With fries." },
+                ru: { title: "Двойной Би-Зон Бургер", desc: "Больше мяса, больше вкуса.", ingredients: "240г говяжья котлета, двойной чеддер, салат, помидор, лук, соус. С картофелем." }
+            },
+            {
+                id: "b3", category: "burger",
+                img: "https://images.unsplash.com/photo-1615719417327-1c25143a5061?q=80&w=800&auto=format&fit=crop",
+                tr: { title: "Bi-Zone Meksika Burger", desc: "Acı severlerin favorisi.", ingredients: "120gr köfte, cheddar, marul, domates, jalapeno biberi, acılı burger ve barbekü sos. Patates ile." },
+                en: { title: "Bi-Zone Mexican Burger", desc: "Favorite for spice lovers.", ingredients: "120g patty, cheddar, lettuce, tomato, jalapeno, spicy burger & BBQ sauce. With fries." },
+                ru: { title: "Мексиканский Бургер", desc: "Для любителей остренького.", ingredients: "120г котлета, чеддер, салат, помидор, халапеньо, острый и BBQ соус. С картофелем." }
+            },
+            {
+                id: "b4", category: "burger",
+                img: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?q=80&w=800&auto=format&fit=crop",
+                tr: { title: "Tavuk Dürüm", desc: "Özel soslu doyurucu dürüm.", ingredients: "Lavaş, ızgara tavuk, marul, domates, soğan, peynir, burger sosu. Patates kızartması ile." },
+                en: { title: "Chicken Wrap", desc: "Satisfying wrap with special sauce.", ingredients: "Lavash, grilled chicken, lettuce, tomato, onion, cheese, burger sauce. With fries." },
+                ru: { title: "Куриный ролл", desc: "Сытный ролл со специальным соусом.", ingredients: "Лаваш, курица на гриле, салат, помидор, лук, сыр, соус. С картофелем." }
+            },
+            {
+                id: "b5", category: "burger",
+                img: "https://images.unsplash.com/photo-1615870216519-2e6dcbbd87af?q=80&w=800&auto=format&fit=crop",
+                tr: { title: "Etli Quesadilla", desc: "Meksika mutfağından sıcacık atıştırmalık.", ingredients: "Lavaş, kıyma, biber, domates, sarımsak, mısır, soğan, peynir, domates sosu." },
+                en: { title: "Beef Quesadilla", desc: "Warm snack from Mexican cuisine.", ingredients: "Lavash, minced meat, peppers, tomatoes, garlic, corn, onions, cheese, tomato sauce." },
+                ru: { title: "Кесадилья с говядиной", desc: "Горячая закуска из мексиканской кухни.", ingredients: "Лаваш, фарш, перец, помидоры, чеснок, кукуруза, лук, сыр, томатный соус." }
+            },
+
+            // ATIŞTIRMALIKLAR
+            {
+                id: "s1", category: "snack",
+                img: "https://images.unsplash.com/photo-1536521642388-441263f88cae?q=80&w=800&auto=format&fit=crop",
+                tr: { title: "Mozzarella Çubukları", desc: "Dışı çıtır, içi uzayan peynir lezzeti.", ingredients: "Panelenmiş ve kızartılmış mozzarella peynir çubukları, özel dip sos ile." },
+                en: { title: "Mozzarella Sticks", desc: "Crispy outside, melting cheese inside.", ingredients: "Breaded and fried mozzarella cheese sticks, with special dip sauce." },
+                ru: { title: "Сырные палочки Моцарелла", desc: "Хрустящие снаружи, тающий сыр внутри.", ingredients: "Панированные и жареные палочки из сыра моцарелла со специальным соусом." }
+            },
+            {
+                id: "s2", category: "snack",
+                img: "https://images.unsplash.com/photo-1625938146369-adc83368bda7?q=80&w=800&auto=format&fit=crop",
+                tr: { title: "Karışık Atıştırma Tabağı", desc: "2-3 Kişilik dev lezzet kulesi.", ingredients: "Patates kızartması, soğan halkası, çıtır tavuk, mozzarella çubukları, dip soslar." },
+                en: { title: "Mixed Snack Platter", desc: "Giant flavor tower for 2-3 people.", ingredients: "French fries, onion rings, crispy chicken, mozzarella sticks, dip sauces." },
+                ru: { title: "Тарелка закусок ассорти", desc: "Огромная башня вкуса на 2-3 персоны.", ingredients: "Картофель фри, луковые кольца, хрустящая курица, сырные палочки, соусы." }
+            },
+            {
+                id: "s3", category: "snack",
+                img: "https://images.unsplash.com/photo-1576107232684-1279f390859f?q=80&w=800&auto=format&fit=crop",
+                tr: { title: "Patates Kızartması", desc: "Altın sarısı çıtır patatesler.", ingredients: "Özel baharatlarla harmanlanmış, taze kızartılmış dilim patates." },
+                en: { title: "French Fries", desc: "Golden yellow crispy fries.", ingredients: "Freshly fried sliced potatoes blended with special spices." },
+                ru: { title: "Картофель фри", desc: "Золотистый хрустящий картофель.", ingredients: "Свежеобжаренный нарезанный картофель со специальными специями." }
+            },
+
+            // İÇECEKLER
+            {
+                id: "d1", category: "drink",
+                img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=800&auto=format&fit=crop",
+                tr: { title: "Cool Lime", desc: "Serinletici nane ve misket limonu.", ingredients: "Misket limonu (lime) özü, taze nane yaprakları, buz, su." },
+                en: { title: "Cool Lime", desc: "Refreshing mint and lime.", ingredients: "Lime extract, fresh mint leaves, ice, water." },
+                ru: { title: "Кул Лайм", desc: "Освежающая мята и лайм.", ingredients: "Экстракт лайма, свежие листья мяты, лед, вода." }
+            },
+            {
+                id: "d2", category: "drink",
+                img: "https://images.unsplash.com/photo-1461023058943-0708e52150fe?q=80&w=800&auto=format&fit=crop",
+                tr: { title: "Iced Caramel Latte", desc: "Karamel tutkunları için buz gibi kahve keyfi.", ingredients: "Espresso, soğuk süt, buz, karamel şurubu." },
+                en: { title: "Iced Caramel Latte", desc: "Cold coffee delight for caramel lovers.", ingredients: "Espresso, cold milk, ice, caramel syrup." },
+                ru: { title: "Холодный карамельный латте", desc: "Холодный кофе для любителей карамели.", ingredients: "Эспрессо, холодное молоко, лед, карамельный сироп." }
+            },
+            {
+                id: "d3", category: "drink",
+                img: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=800&auto=format&fit=crop",
+                tr: { title: "Ev Yapımı Ice Tea", desc: "Buz gibi ev yapımı şeftali/limon çayı.", ingredients: "Demlenmiş siyah çay, taze meyve özleri, buz." },
+                en: { title: "Homemade Ice Tea", desc: "Ice cold homemade peach/lemon tea.", ingredients: "Brewed black tea, fresh fruit extracts, ice." },
+                ru: { title: "Домашний Айс Ти", desc: "Ледяной домашний персиковый/лимонный чай.", ingredients: "Заваренный черный чай, экстракты свежих фруктов, лед." }
+            },
+            {
+                id: "d4", category: "drink",
+                img: "https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=800&auto=format&fit=crop",
+                tr: { title: "Espresso / Americano", desc: "Gerçek İtalyan çekirdeklerinden sıcak kahve.", ingredients: "Taze öğütülmüş 100% Arabica kahve çekirdekleri." },
+                en: { title: "Espresso / Americano", desc: "Hot coffee from real Italian beans.", ingredients: "Freshly ground 100% Arabica coffee beans." },
+                ru: { title: "Эспрессо / Американо", desc: "Горячий кофе из настоящих итальянских зерен.", ingredients: "Свежемолотые кофейные зерна 100% арабика." }
+            }
+        ];
+
+        // --- 3. RENDER FUNCTIONS ---
+        function renderCategories() {
+            const container = document.getElementById('category-filters');
+            const cats = [
+                { id: 'all', key: 'catAll' },
+                { id: 'breakfast', key: 'catBreakfast' },
+                { id: 'pizza', key: 'catPizza' },
+                { id: 'pasta', key: 'catPasta' },
+                { id: 'burger', key: 'catBurger' },
+                { id: 'snack', key: 'catSnack' },
+                { id: 'drink', key: 'catDrink' }
+            ];
+            
+            container.innerHTML = cats.map(cat => `
+                <button onclick="filterMenu('${cat.id}')" id="btn-cat-${cat.id}" 
+                    class="cat-btn px-6 py-2.5 bg-stone-900 border border-stone-800 text-stone-300 rounded-full text-sm font-medium hover:border-brand-amber transition-all duration-300 ${currentCategory === cat.id ? 'active shadow-[0_0_15px_rgba(245,158,11,0.2)]' : ''}">
+                    ${uiTranslations[currentLang][cat.key]}
+                </button>
+            `).join('');
+        }
+
+        function renderMenu() {
+            const grid = document.getElementById('menu-grid');
+            grid.innerHTML = ''; 
+            
+            const filteredData = currentCategory === 'all' 
+                ? menuData 
+                : menuData.filter(item => item.category === currentCategory);
+
+            filteredData.forEach(item => {
+                const itemData = item[currentLang];
+                const inspectText = uiTranslations[currentLang].cardInspect;
+
+                const card = document.createElement('div');
+                card.className = "menu-card bg-stone-900 border border-stone-800 rounded-2xl overflow-hidden cursor-pointer group flex flex-col h-full hover:border-brand-amber/50 transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1";
+                
+                card.onclick = () => openModal(item);
+                
+                // HTML Layout without Price
+                card.innerHTML = `
+                    <div class="relative h-64 overflow-hidden bg-stone-800">
+                        <img src="${item.img}" alt="${itemData.title}" loading="lazy" class="card-img w-full h-full object-cover transition-transform duration-700 ease-out">
+                        <div class="absolute inset-0 bg-stone-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                            <span class="bg-brand-amber text-stone-950 px-5 py-2.5 rounded-full font-bold text-sm flex items-center gap-2 shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                                ${inspectText}
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-6 md:p-8 flex flex-col flex-grow">
+                        <div class="flex justify-between items-start mb-3 gap-4">
+                            <h3 class="text-xl md:text-2xl font-serif font-bold text-white leading-tight group-hover:text-brand-amber transition-colors">${itemData.title}</h3>
+                        </div>
+                        <p class="text-stone-400 text-sm md:text-base mb-4 font-light leading-relaxed">${itemData.desc}</p>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // --- 4. INTERACTION LOGIC ---
+        function filterMenu(category) {
+            currentCategory = category;
+            renderCategories(); 
+            renderMenu();       
+        }
+
+        function setLang(lang) {
+            currentLang = lang;
+            
+            ['tr', 'en', 'ru'].forEach(l => {
+                document.getElementById(`btn-${l}`).classList.remove('active');
+            });
+            document.getElementById(`btn-${lang}`).classList.add('active');
+
+            const t = uiTranslations[lang];
+            document.getElementById('ui-hero-subtitle').innerText = t.heroSubtitle;
+            document.getElementById('ui-hero-btn').innerText = t.heroBtn;
+            document.getElementById('ui-menu-title').innerText = t.menuTitle;
+            document.getElementById('ui-modal-ingredients-title').innerText = t.modalIngredients;
+            document.getElementById('ui-modal-order-title').innerText = t.modalOrderTitle;
+            document.getElementById('ui-modal-wa-btn').innerText = t.modalWaBtn;
+            document.getElementById('ui-footer-text').innerText = t.footerText;
+            document.getElementById('ui-footer-rights').innerText = t.footerRights;
+
+            renderCategories();
+            renderMenu();
+        }
+
+        // Modal Logic
+        const modal = document.getElementById('productModal');
+        const phone = "905325505583"; 
+
+        function openModal(item) {
+            const itemData = item[currentLang]; 
+
+            document.getElementById('modalImg').src = item.img;
+            document.getElementById('modalTitle').textContent = itemData.title;
+            // No price setting
+            document.getElementById('modalDesc').textContent = itemData.desc;
+            document.getElementById('modalIngredients').textContent = itemData.ingredients;
+            
+            let msg = "Merhaba, sipariş vermek istiyorum:";
+            if(currentLang === 'en') msg = "Hello, I would like to order:";
+            if(currentLang === 'ru') msg = "Здравствуйте, я хочу заказать:";
+            
+            const waMessage = encodeURIComponent(`${msg} ${itemData.title}`);
+            document.getElementById('waModalButton').href = `https://wa.me/${phone}?text=${waMessage}`;
+            
+            modal.classList.add('modal-enter');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeModal() {
+            modal.classList.remove('modal-enter');
+            document.body.style.overflow = '';
+        }
+
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) closeModal();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('modal-enter')) closeModal();
+        });
+
+        // Initialize App
+        window.onload = () => {
+            setLang('tr'); 
+        };
+    </script>
+</body>
+</html>
